@@ -10,9 +10,11 @@ import Tabuleiro.Peça;
 import Tabuleiro.Tabuleiro;
 import Tabuleiro.Tridente;
 import java.awt.Component;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,13 +105,11 @@ public class TabuleiroJanelaController implements Initializable {
                     
                     Peça aux = new Cajahyba(0, i, j);
                     
-                   png = new ImageView("png/C++.png");
-                    
                     Tab.InserirPeça(i, j, aux);
-                    png.setFitHeight(TamCasa);
-                    png.setFitWidth(TamCasa);
                     
-                    gridPane.add(Tab.getCasas()[i][j].getUnidade().getImageView(), j, i);
+                    Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                    
+                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), j, i);
                 }
             }
 
@@ -128,10 +128,10 @@ public class TabuleiroJanelaController implements Initializable {
             System.out.println(" " + ((Casa) event.getSource()).getCoordY());
         }
         
-        if(event.getSource() instanceof Peça) {
-            
-            
-            //System.out.print((Peça) );
+        if(event.getSource() instanceof ImageView) {
+           
+            System.out.println(event.getSource());
+            System.out.println("é Peça");
         }
         
     };

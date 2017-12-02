@@ -23,27 +23,22 @@ public class Cajahyba extends Peça {
         X = x;
     }
 
-    public int getX() {
-        return X;
-    }
-
     private void setY(int y) {
         Y = y;
     }
 
-    public int getY() {
-        return Y;
-    }
-
     public Cajahyba(int cor, int x, int y) {
+        
+        
+        super("png/C++.png");
+        
+        setFitHeight(TamCasa);
+        setFitWidth(TamCasa);
+        
         setCor(cor);
         setX(x);
         setY(y);
         
-        Ícone = new ImageView("png/C++.png");
-        
-        Ícone.setFitHeight(TamCasa);
-        Ícone.setFitWidth(TamCasa);
         
         if (Cor == 0) {
             Formato = 'c';

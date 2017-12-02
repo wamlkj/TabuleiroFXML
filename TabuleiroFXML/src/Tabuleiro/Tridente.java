@@ -16,13 +16,11 @@ public final class Tridente extends Peça {
 
     public Tridente(int cor, int x, int y) {
         
+        super("png.Tridente.jpg");
+        
         setCor(cor);
         setX(x);
         setY(y);
-        
-        Ícone = new ImageView("png/Tridente.jpg");
-        Ícone.setFitHeight(TamCasa);
-        Ícone.setFitWidth(TamCasa);
         
         if(cor == 0) Formato = 'T';
         else Formato = 't';
@@ -37,16 +35,9 @@ public final class Tridente extends Peça {
         Cor = Cor;
     }
 
-    public int getX() {
-        return X;
-    }
 
     public void setX(int X) {
         this.X = X;
-    }
-
-    public int getY() {
-        return Y;
     }
 
     public void setY(int Y) {

@@ -6,21 +6,20 @@ package Tabuleiro;
 import java.util.ArrayList;
 import javafx.scene.image.ImageView;
 
-public abstract class Peça {
+public abstract class Peça extends ImageView{
 
     protected int Cor;
     protected int X;
     protected int Y;
     protected char Formato;
-    protected ImageView Ícone;
     final int TamCasa = 50;
-
+    
+    public Peça(String url) {
+        
+        super(url);
+    }
+    
     abstract ArrayList<Integer> TraçarCaminhos(int var1, int var2);
 
     abstract ArrayList<Integer> TraçarCaptura(int var1, int var2);
-    
-     public ImageView getImageView() {
-        
-        return Ícone;
-    }
 }
