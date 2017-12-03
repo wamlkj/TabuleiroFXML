@@ -12,6 +12,7 @@ import Tabuleiro.Tridente;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -28,6 +29,24 @@ import javafx.scene.paint.Color;
 public class TabuleiroJanelaController implements Initializable {
 
     public TabuleiroJanelaController() {
+        
+        this.TrataCliqueDoMouse = event -> {
+            
+            if(event.getSource() instanceof Casa) {
+                
+                System.out.print(((Casa) event.getSource()).getCoordX());
+                System.out.println(" " + ((Casa) event.getSource()).getCoordY());
+            }
+            
+            if(event.getSource() instanceof ImageView) {
+                
+                System.out.println(event.getSource());
+                System.out.println("é Peça");
+                
+                TreatMovements(((Peça) event.getSource()), Tab);
+            }
+            
+        };
         
         gridPane = new GridPane();
     }
@@ -70,6 +89,7 @@ public class TabuleiroJanelaController implements Initializable {
 
             RowConstraints RC = new RowConstraints();
             RC.setPrefHeight(TamCasa);
+            
 
             gridPane.getRowConstraints().add(RC);
         }
@@ -99,20 +119,30 @@ public class TabuleiroJanelaController implements Initializable {
                     Tab.getCasas()[i][j].setFill(Color.ANTIQUEWHITE);
                 }
 
-                   gridPane.add(Tab.getCasas()[i][j], j, i);
+                   gridPane.add(Tab.getCasas()[i][j], i, j);
                 
-                if(i == 0 && j == 0) {
+                if(i == Linhas/2 && j == Colunas/2) {
                     
+                   Peça aux = new Tridente(0, i, j);
+                    
+                   Tab.InserirPeça(i, j, aux);
+                    
+                   Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                    
+                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), i, j);
+                }
+                
+                if(i == Linhas/3 && j == Colunas/3) {
+
                     Peça aux = new Cajahyba(0, i, j);
                     
                     Tab.InserirPeça(i, j, aux);
                     
                     Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
                     
-                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), j, i);
+                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), i, j);
                 }
             }
-
         }
 
         apPrincipal.getChildren().add(gridPane);
@@ -120,21 +150,34 @@ public class TabuleiroJanelaController implements Initializable {
     
     ImageView png;
     
-    private final EventHandler<MouseEvent> TrataCliqueDoMouse = event -> {
+    private final EventHandler<MouseEvent> TrataCliqueDoMouse;
+    
+    @FXML
+    public void TreatMovements(Peça Unidade, Tabuleiro Tab) {
+        
+        ArrayList <Integer> AllTrajetos, TrajetosVálidos = new ArrayList();
+        int i, x, y;
+        int All = -1;
+        
+        AllTrajetos = Unidade.TraçarCaminhos(All, All);
+        
+        TrajetosVálidos = Tab.ChecarCadaRumo(AllTrajetos);
+        
+        for(i = 0; i < TrajetosVálidos.size(); i += 2) {
             
-        if(event.getSource() instanceof Casa) {
+            x = TrajetosVálidos.get(i);
+            y = TrajetosVálidos.get(i + 1);
             
-            System.out.print(((Casa) event.getSource()).getCoordX());
-            System.out.println(" " + ((Casa) event.getSource()).getCoordY());
+            if (x % 2 == 0 && y % 2 == 0 || x % 2 != 0 && y % 2 != 0) {
+
+                Tab.getCasas()[x][y].setFill(Color.DARKGREEN);    
+            } else {
+
+                Tab.getCasas()[x][y].setFill(Color.LIGHTGREEN);
+            } 
         }
         
-        if(event.getSource() instanceof ImageView) {
-           
-            System.out.println(event.getSource());
-            System.out.println("é Peça");
-        }
-        
-    };
+    }
     
     @FXML
     public void initialize(URL url1, ResourceBundle resourcebundle) {

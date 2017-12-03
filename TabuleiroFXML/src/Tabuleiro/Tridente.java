@@ -16,7 +16,10 @@ public final class Tridente extends Peça {
 
     public Tridente(int cor, int x, int y) {
         
-        super("png.Tridente.jpg");
+        super("png/Tridente.jpg");
+        
+        setFitHeight(TamCasa);
+        setFitWidth(TamCasa);
         
         setCor(cor);
         setX(x);
@@ -53,13 +56,48 @@ public final class Tridente extends Peça {
     }
 
     @Override
-    ArrayList<Integer> TraçarCaminhos(int NovoX, int NovoY) { //A peça se move no formato de um tridente, tanto pra cima quanto para baixo.
+    public ArrayList<Integer> TraçarCaminhos(int NovoX, int NovoY) { //A peça se move no formato de um tridente, tanto pra cima quanto para baixo.
         
         ArrayList<Integer> Caminho = new ArrayList<>();
-        if ((X) == NovoX && (Y - 2) == NovoY) {//Traçando caminho pra cima
+        
+        if(NovoX == -1 && NovoY == -1) {
             
             Caminho.add(X);
             Caminho.add(Y - 1);
+            
+            Caminho.add(X);
+            Caminho.add(Y - 2);
+            
+            Caminho.add(SeparaRumos);
+            
+            Caminho.add(X);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y - 2);
+            
+            Caminho.add(SeparaRumos);
+            
+            Caminho.add(X);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y - 2);
+            
+            Caminho.add(SeparaRumos);
+            Caminho.add(FIM);
+
+        } else if ((X) == NovoX && (Y - 2) == NovoY) {//Traçando caminho pra cima
+            
+            Caminho.add(X);
+            Caminho.add(Y - 1);
+            
             Caminho.add(X);
             Caminho.add(Y - 2);
 
@@ -92,11 +130,34 @@ public final class Tridente extends Peça {
     }
 
     @Override
-    ArrayList<Integer> TraçarCaptura(int NovoX, int NovoY) { //A peça comerá em diagonal da sua posiçao atual
+    public ArrayList<Integer> TraçarCaptura(int NovoX, int NovoY) { //A peça comerá em diagonal da sua posiçao atual
         
         ArrayList<Integer> Captura = new ArrayList<>();
         
-        if ((X - 1) == NovoX && (Y - 1) == NovoY) {     //(5,5)  -> (4,4) (6,4) (6,6) (4,6)
+        if (NovoX == -1 && NovoY == -1) {
+            
+            Captura.add(X - 1);
+            Captura.add(Y - 1);
+            
+            Captura.add(SeparaRumos);
+            
+            Captura.add(X + 1);
+            Captura.add(Y - 1);
+            
+            Captura.add(SeparaRumos);
+            
+            Captura.add(X + 1);
+            Captura.add(Y + 1);
+            
+            Captura.add(SeparaRumos);
+            
+            Captura.add(X - 1);
+            Captura.add(Y + 1);
+            
+            Captura.add(SeparaRumos);
+            Captura.add(FIM);
+        
+        } else if ((X - 1) == NovoX && (Y - 1) == NovoY) {     //(5,5)  -> (4,4) (6,4) (6,6) (4,6)
             
             Captura.add(X - 1);
             Captura.add(Y - 1);
