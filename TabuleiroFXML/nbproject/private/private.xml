@@ -5,9 +5,10 @@
         <group>
             <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/Tridente.java</file>
             <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/tabuleirofxml/TelaInicialController.java</file>
-            <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/BancoPeças.java</file>
             <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/tabuleirofxml/TabuleiroJanelaController.java</file>
+            <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/Tabuleiro.java</file>
             <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/Casa.java</file>
+            <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/Peça.java</file>
             <file>file:/C:/Users/Lucas/Documents/NetBeansProjects/TabuleiroFXML/src/Tabuleiro/Cajahyba.java</file>
         </group>
     </open-files>

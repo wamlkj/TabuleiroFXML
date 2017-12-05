@@ -59,14 +59,13 @@ public class Tabuleiro {
 
     }
 
-    public boolean MovimentoVE1lido(int X, int Y, int NovoX, int NovoY) {
-        ArrayList Trajeto = Casas[X][Y].getUnidade().TraçarCaminhos(NovoX, NovoY);
-        if (Trajeto == null) {
-            return false;
-        }
-        for (int i = 0; i < Trajeto.size() / 2; i += 2) {
+    public boolean MovimentoVálido(ArrayList<Integer> Trajeto) {
+        
+        for (int i = 0; i < Trajeto.size(); i += 2) {
+            
             int x = ((Integer) Trajeto.get(i)).intValue();
             int y = ((Integer) Trajeto.get(i + 1)).intValue();
+            
             if (x > BordaX || y > BordaY || x < 0 || y < 0) {
                 return false;
             }
@@ -77,18 +76,60 @@ public class Tabuleiro {
 
         return true;
     }
+    
+    public ArrayList ChecarCadaRumo(ArrayList<Integer> AllRumos) {
+        
+        int i = 0, x, y;
+        int FIM = -200;
+        int SepararRumo = -100;
+        
+        ArrayList aux, Final = new ArrayList();
+        
+        aux = new ArrayList();
+        
+        while(AllRumos.get(i) != null) {
+            
+            if(AllRumos.get(i) == SepararRumo) {
+
+                if(MovimentoVálido(aux) == true) {
+                    
+                    Final.addAll(aux);
+                }
+                
+                
+                if(AllRumos.get(i + 1) == FIM) {
+                    
+                    return Final;
+                }
+                
+               i++;
+               aux.clear();
+            }
+            
+            x = AllRumos.get(i);
+            y = AllRumos.get(i + 1);
+            
+            aux.add(x);
+            aux.add(y);
+            
+            i += 2;
+        }
+        
+        return Final;
+    }
 
     public boolean CasaTemPeça(int X, int Y) {
         return Casas[X][Y].getUnidade() != null;
     }
 
+   @Deprecated
     public boolean MoverPeça(int X, int Y, int NovoX, int NovoY) {
         if (!CasaTemPeça(X, Y)) {
             return false;
         }
-        if (!MovimentoVE1lido(X, Y, NovoX, NovoY)) {
-            return false;
-        }
+      //  if (!MovimentoVálido(X, Y, NovoX, NovoY)) {
+          //  return false;
+        //}
         if (CasaTemPeça(NovoX, NovoY)) {
             if (Casas[NovoX][NovoY].getUnidade().Cor == 0) {
                 PeçasBrancas--;
@@ -96,27 +137,30 @@ public class Tabuleiro {
                 PeçasPretas--;
             }
         }
-        Peça TransitF3ria = Casas[X][Y].getUnidade();
-        TransitF3ria.X = NovoX;
-        TransitF3ria.Y = NovoY;
+        Peça Transitória = Casas[X][Y].getUnidade();
+        Transitória.X = NovoX;
+        Transitória.Y = NovoY;
         RemoverPeça(X, Y);
-        InserirPeça(NovoX, NovoY, TransitF3ria);
+        InserirPeça(NovoX, NovoY, Transitória);
         return true;
     }
 
-    public boolean CapturaVE1lida(int X, int Y, int NovoX, int NovoY) {
+    public boolean CapturaVálida(int X, int Y, int NovoX, int NovoY) {
         if (Casas[NovoX][NovoY].getUnidade().Cor == Casas[X][Y].getUnidade().Cor) {
+            
             return false;
         }
-        System.out.println("Aqui");
+        
         ArrayList Investida = Casas[X][Y].getUnidade().TraçarCaptura(NovoX, NovoY);
+        
         if (Investida == null) {
+            
             return false;
         }
-        System.out.println("Aqui2");
         int i = 0;
+        
         if (i < Investida.size() / 2) {
-            System.out.println((new StringBuilder()).append("Aqui ").append(i).toString());
+            
             int x = ((Integer) Investida.get(i)).intValue();
             int y = ((Integer) Investida.get(i + 1)).intValue();
             if (x == NovoX && y == NovoY) {
@@ -138,19 +182,21 @@ public class Tabuleiro {
         if (!CasaTemPeça(X, Y) || !CasaTemPeça(NovoX, NovoY)) {
             return false;
         }
-        if (!CapturaVE1lida(X, Y, NovoX, NovoY)) {
+        if (!CapturaVálida(X, Y, NovoX, NovoY)) {
+            
             return false;
         }
-        Peça TransitF3ria = Casas[X][Y].getUnidade();
-        TransitF3ria.X = NovoX;
-        TransitF3ria.Y = NovoY;
+        
+        Peça Transitória = Casas[X][Y].getUnidade();
+        Transitória.X = NovoX;
+        Transitória.Y = NovoY;
         if (Casas[X][Y].getUnidade().Cor == 0) {
             PeçasBrancas--;
         } else {
             PeçasPretas--;
         }
         RemoverPeça(X, Y);
-        InserirPeça(NovoX, NovoY, TransitF3ria);
+        InserirPeça(NovoX, NovoY, Transitória);
         return true;
     }
 
@@ -159,8 +205,10 @@ public class Tabuleiro {
             return false;
         }
         if (Tipo.Cor == 0) {
+            
             PeçasBrancas++;
         } else {
+            
             PeçasPretas++;
         }
         Casas[X][Y].setPeça(Tipo);

@@ -49,7 +49,70 @@ public class Cajahyba extends Peça {
     
     public ArrayList TraçarCaminhos(int NovoX, int NovoY) {
         ArrayList Caminho = new ArrayList();
-        if (X - 2 == NovoX && Y == NovoY) {
+        
+        // Delimitador entre uma trajetória e outra;
+        
+        
+        if(NovoX == -1 && NovoY == -1) {
+            
+            Caminho.add(X);
+            Caminho.add(Y + 1);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y + 1);
+            
+            Caminho.add(X - 2);
+            Caminho.add(Y + 1);
+            
+            Caminho.add(X - 2);
+            Caminho.add(Y);
+            
+            Caminho.add(SeparaRumos); 
+            
+            Caminho.add(X);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X + 2);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X + 2);
+            Caminho.add(Y);
+            
+            Caminho.add(SeparaRumos);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y - 1);
+            
+            Caminho.add(X - 1);
+            Caminho.add(Y - 2);
+            
+            Caminho.add(X);
+            Caminho.add(Y - 2);
+            
+            Caminho.add(SeparaRumos); 
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y);
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y + 1);
+            
+            Caminho.add(X + 1);
+            Caminho.add(Y + 2);
+            
+            Caminho.add(X);
+            Caminho.add(Y + 2);
+            
+            Caminho.add(SeparaRumos);
+            
+            Caminho.add(FIM);
+        } else if (X - 2 == NovoX && Y == NovoY) {
             
             Caminho.add(X);
             Caminho.add(Y + 1);
@@ -75,6 +138,7 @@ public class Cajahyba extends Peça {
             
             Caminho.add(X + 2);
             Caminho.add(Y);
+            
         } else if (X == NovoX && Y - 2 == NovoY) {
             Caminho.add(X - 1);
             Caminho.add(Y);
@@ -112,7 +176,27 @@ public class Cajahyba extends Peça {
         
         ArrayList Captura = new ArrayList();
         
-        if (X - 1 == NovoX && Y == NovoY) {
+        if(NovoX == -1 && NovoY == -1) {
+            
+            Captura.add(X - 1);
+            Captura.add(Y);
+            
+            Captura.add(SeparaRumos); 
+            
+            Captura.add(X - 1);
+            Captura.add(Y);
+            
+            Captura.add(X + 1);
+            Captura.add(Y);
+            
+            Captura.add(SeparaRumos); 
+            
+            Captura.add(X);
+            Captura.add(Y + 1);
+            
+            Captura.add(SeparaRumos);
+            Captura.add(FIM);
+        } else if (X - 1 == NovoX && Y == NovoY) {
             
             Captura.add(X - 1);
             Captura.add(Y);

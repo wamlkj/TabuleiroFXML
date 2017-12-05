@@ -13,13 +13,15 @@ public abstract class Peça extends ImageView{
     protected int Y;
     protected char Formato;
     final int TamCasa = 50;
+    final int FIM = -200;
+    final int SeparaRumos = -100;
     
     public Peça(String url) {
         
         super(url);
     }
     
-    abstract ArrayList<Integer> TraçarCaminhos(int var1, int var2);
+    public abstract ArrayList<Integer> TraçarCaminhos(int X, int Y);
 
-    abstract ArrayList<Integer> TraçarCaptura(int var1, int var2);
+    public abstract ArrayList<Integer> TraçarCaptura(int X, int Y);
 }
